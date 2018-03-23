@@ -21,33 +21,27 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props;
-    let element;
+    const { todo, completeTodo, deleteTodo } = this.props
 
+    let element
     if (this.state.editing) {
       element = (
-        <TodoTextInput 
-          text={todo.text}
-          editing={this.state.editing}
-          onSave={(text) => this.handleSave(todo.id, text)} 
-        />
+        <TodoTextInput text={todo.text}
+                       editing={this.state.editing}
+                       onSave={(text) => this.handleSave(todo.id, text)} />
       )
     } else {
       element = (
         <div className="view">
-          <input 
-            className="toggle" 
-            type="checkout"
-            checked={todo.completed}
-            onChange={() => completeTodo(todo.id)}
-          />
+          <input className="toggle"
+                 type="checkbox"
+                 checked={todo.completed}
+                 onChange={() => completeTodo(todo.id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
-          <button 
-            className="remove"
-            onClick={() => deleteTodo(todo.id)}
-          />
+          <button className="destroy"
+                  onClick={() => deleteTodo(todo.id)} />
         </div>
       )
     }
@@ -59,7 +53,7 @@ class TodoItem extends Component {
       })}>
         {element}
       </li>
-    );
+    )
   }
 }
 
