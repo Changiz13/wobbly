@@ -1,7 +1,7 @@
 const todosReducerDefaultState = []
 
 export default (state = todosReducerDefaultState, action) => {
-  switch (action.type){
+  switch (action.type) {
     case 'ADD_TODO':
       return [...state, action.todo];
     default:

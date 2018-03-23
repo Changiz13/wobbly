@@ -9,3 +9,9 @@ export const addTodo = ({ title = '', completed = false } = {}) => ({
   }
 });
 
+export const removeExpense = ({ id } = {}) => ({
+  type: 'REMOVE_TODO',
+  id
+});
+
+
