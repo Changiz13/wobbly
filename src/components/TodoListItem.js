@@ -1,8 +1,10 @@
 import React from 'react';
 
-const TodoListItem = ({ title, id }) => (
-  <li>
-    {title}
+const TodoListItem = ({ title, onClick, completed }) => (
+  <li onClick={onClick} style={{
+    textDecoration: completed ? 'line-through' : 'none'
+  }}>
+    {title} <button>X</button>
   </li>
 );
 

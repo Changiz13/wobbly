@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TodoListItem from './TodoListItem';
-import { addTodo } from '../actions/todos';
+import { addTodo, toggleTodo } from '../actions/todos';
 import { connect } from 'react-redux';
 
-const TodoList = (props) => (
+class TodoList extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  onToggle = (todo) => {
+    this.props.toggleTodo(todo);
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {
+            this.props.todos.length === 0 ? (
+              <li>No tasks</li>
+            ) : (
+              this.props.todos.map((todo) => {
+                return <TodoListItem key={todo.id} {...todo} onClick={this.onToggle} />
+              })
+            )
+          }
+        </ul>
+      </div>
+    );
+  }
+};
+
+/* const TodoList = (props) => (
 <div>
   <ul>
     {
@@ -11,13 +40,13 @@ const TodoList = (props) => (
         <li>No tasks</li>
       ) : (
         props.todos.map((todo) => {
-          return <TodoListItem key={todo.id} {...todo} />
+          return <TodoListItem key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)}/>
         })
       )
     }
   </ul>
 </div>
-);
+); */
 
 const mapStateToProps = (state) => {
   return {
@@ -25,4 +54,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = (dispatch) => ({
+  toggleTodo: (todo) => dispatch(toggleTodo(todo))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
