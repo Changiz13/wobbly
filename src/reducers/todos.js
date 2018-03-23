@@ -1,14 +1,53 @@
-const todosReducerDefaultState = []
+import uuid from 'uuid';
 
-export default (state = todosReducerDefaultState, action) => {
+const initalState = [
+  {
+    text: 'Establish company with my soulmate',
+    completed: false,
+    id: 0
+  }
+]
+
+export default function todos(state = initalState, action) {
   switch (action.type) {
     case 'ADD_TODO':
-      return [...state, action.todo];
-    case 'REMOVE_TODO':
-      return state.filter(({ id }) => id !== action.id);
-    case 'TOGGLE_TODO':
-      return state.map(todo => (todo.id === action.id) ? {...todo, completed: !todo.completed} : todo)
-    default:
-      return state;
+      return [
+        ...state,
+        {
+          id: uuid(),
+          completed: false,
+          text: action.text
+        }
+      ]
+
+    case 'DELETE_TODO':
+      return state.filter(todo => todo.id !== action.id)
+    
+    case 'EDIT_TODO':
+      return state.map(todo => 
+        todo.id === action.id ? 
+        { ...todo, text: action.text } : 
+        todo
+      )
+
+    case 'COMPLETE_TODO':
+      return state.map(todo =>
+        todo.id === action.id ?
+        { ...todo, completed: !completed } :
+        todo
+      )
+    
+    case 'COMPLETE_ALL':
+      const allCompleted = state.every(todo => todo.completed)
+      return stat.map(todo => ({
+        ...todo,
+        completed: !allCompleted
+      }))
+
+    case 'CLEAR_COMPLETED':
+      return state.filter(todo => todo.completed === false)
+    
+    default: 
+      return state
   }
 };

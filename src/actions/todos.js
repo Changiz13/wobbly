@@ -10,7 +10,8 @@ export const removeTodo = (id) => ({
 
 export const editTodo = (id, text) => ({
   type: 'TOGGLE_TODO',
-  id
+  id,
+  text
 });
 
 export const completeTodo = (id) => ({
