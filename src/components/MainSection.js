@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
-import {
-  SHOW_ALL,
-  SHOW_COMPLETED,
-  SHOW_ACTIVE
-} from "../constants/todo-filters";
+import BottomSection from './BottomSection';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from "../constants/todo-filters";
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -23,30 +20,14 @@ export default class MainSection extends Component {
     this.setState({ filter });
   };
 
-  renderToggleAll(completedCount) {
-    const { todos, actions } = this.props;
-    if (todos.length > 0) {
-      return (
-        <span>
-          <input
-            className="toggle-all"
-            type="checkbox"
-            checked={completedCount === todos.length}
-          />
-          <label onClick={actions.completeAll} />
-        </span>
-      );
-    }
-  }
-
-/*   renderFooter(completedCount) {
+  renderFooter(completedCount) {
     const { todos } = this.props;
     const { filter } = this.state;
     const activeCount = todos.length - completedCount;
 
     if (todos.length) {
       return (
-        <Footer
+        <BottomSection
           completedCount={completedCount}
           activeCount={activeCount}
           filter={filter}
@@ -55,7 +36,7 @@ export default class MainSection extends Component {
         />
       );
     }
-  } */
+  }
 
   render() {
     const { todos, actions } = this.props;
@@ -69,12 +50,12 @@ export default class MainSection extends Component {
 
     return (
       <section className="main">
-        {this.renderToggleAll(completedCount)}
-        <ul className="todo-list">
+        <ol className="todo-list">
           {filteredTodos.map(todo => (
             <TodoItem key={todo.id} todo={todo} {...actions} />
           ))}
-        </ul>
+        </ol>
+        {this.renderFooter(completedCount)}
       </section>
     );
   }
