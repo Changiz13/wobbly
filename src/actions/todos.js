@@ -3,13 +3,13 @@ export const addTodo = (text) => ({
   text
 });
 
-export const removeTodo = (id) => ({
-  type: 'REMOVE_TODO',
+export const deleteTodo = (id) => ({
+  type: 'DELETE_TODO',
   id
 });
 
 export const editTodo = (id, text) => ({
-  type: 'TOGGLE_TODO',
+  type: 'EDIT_TODO',
   id,
   text
 });
